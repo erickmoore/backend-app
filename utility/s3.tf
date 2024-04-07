@@ -1,36 +1,39 @@
 #Secret S3 Bucket
 resource "aws_s3_bucket" "aattack-path-secret-s3-bucket" {
-  bucket = "aattack-path-secret-s3-bucket-${var.ebillingid}"
+  bucket        = "aattack-path-secret-s3-bucket-${var.ebillingid}"
   force_destroy = true
   tags = {
-      Name = "aattack-path-secret-s3-bucket-${var.ebillingid}"
-      Description = "ebilling ${var.ebillingid} S3 Bucket used for storing a secret"
-      Stack = "${var.stack-name}"
-      Scenario = "${var.scenario-name}"
+    Name        = "aattack-path-secret-s3-bucket-${var.ebillingid}"
+    Description = "ebilling ${var.ebillingid} S3 Bucket used for storing a secret"
+    Stack       = "${var.stack-name}"
+    Scenario    = "${var.scenario-name}"
+    yor_trace   = "6f2341b7-1333-4565-84a4-51a5cc692ca6"
   }
 }
 
 resource "aws_s3_bucket_object" "aattack-path-shepards-credentials" {
   bucket = "${aws_s3_bucket.aattack-path-secret-s3-bucket.id}"
-  key = "admin-user.txt"
+  key    = "admin-user.txt"
   source = "./admin-user.txt"
   tags = {
-    Name = "aattack-path-shepards-credentials-${var.ebillingid}"
-    Stack = "${var.stack-name}"
-    Scenario = "${var.scenario-name}"
+    Name      = "aattack-path-shepards-credentials-${var.ebillingid}"
+    Stack     = "${var.stack-name}"
+    Scenario  = "${var.scenario-name}"
+    yor_trace = "fd0247fa-1b8d-402c-95ea-9e1b6c9ae13f"
   }
 }
 
 data "aws_canonical_user_id" "current" {}
 
 resource "aws_s3_bucket" "finance-secret-s3-bucket" {
-  bucket = "finance-secret-${var.ebillingid}"
+  bucket        = "finance-secret-${var.ebillingid}"
   force_destroy = true
   tags = {
-      Name = "finance-secret-${var.ebillingid}"
-      Description = "ebilling ${var.ebillingid} S3 Bucket used for storing a secret"
-      Stack = "${var.stack-name}"
-      Scenario = "${var.scenario-name}"
+    Name        = "finance-secret-${var.ebillingid}"
+    Description = "ebilling ${var.ebillingid} S3 Bucket used for storing a secret"
+    Stack       = "${var.stack-name}"
+    Scenario    = "${var.scenario-name}"
+    yor_trace   = "257b31cc-57d7-4d61-925f-b77b939fe632"
   }
 }
 
@@ -62,15 +65,16 @@ resource "aws_s3_bucket_acl" "finance-bucket_bucket_acl" {
 }
 
 resource "aws_s3_bucket_object" "s3_public_objects" {
-  bucket = "${aws_s3_bucket.finance-secret-s3-bucket.id}"
+  bucket        = "${aws_s3_bucket.finance-secret-s3-bucket.id}"
   force_destroy = true
   tags = {
-      Name = "finance-secret-s3-bucket-${var.ebillingid}-public"
-      Description = "ebilling ${var.ebillingid} S3 Bucket used for storing a secret"
-      Stack = "${var.stack-name}"
-      Scenario = "${var.scenario-name}"
+    Name        = "finance-secret-s3-bucket-${var.ebillingid}-public"
+    Description = "ebilling ${var.ebillingid} S3 Bucket used for storing a secret"
+    Stack       = "${var.stack-name}"
+    Scenario    = "${var.scenario-name}"
+    yor_trace   = "a991176f-1e44-4f2d-9886-eff0c05b555c"
   }
-  key = "admin-user.txt"
-  source = "./admin-user.txt"
+  key          = "admin-user.txt"
+  source       = "./admin-user.txt"
   content_type = "text/plain"
 }
